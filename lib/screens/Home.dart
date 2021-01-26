@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../logic/api_integration.dart';
 import 'detailedScreen.dart';
 import '../widgets/deleteButton.dart';
+import 'package:get/get.dart';
 
 class AppHome extends StatefulWidget {
   @override
@@ -11,12 +12,13 @@ class AppHome extends StatefulWidget {
 
 class _AppHomeState extends State<AppHome> {
   Future<List<User>> futureUsers;
+  ApiController controller = Get.put(ApiController());
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    futureUsers = fetchUser();
+    futureUsers = controller.fetchUser();
   }
 
   @override
@@ -38,12 +40,9 @@ class _AppHomeState extends State<AppHome> {
                           tileColor: Colors.grey[300],
                           title: Text(m.name),
                           onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    DetailedPage(id: m.userId),
-                              ),
-                            );
+                            Get.to(DetailedPage(
+                              id: m.userId,
+                            ));
                           },
                           trailing: DeleteButton(id: m.userId),
                         ),

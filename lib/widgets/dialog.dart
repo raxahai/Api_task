@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../logic/api_integration.dart';
 
 class PopUpDialog extends StatelessWidget {
+  ApiController controller = Get.find();
+
   final TextEditingController name = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController phone = TextEditingController();
@@ -96,9 +99,9 @@ class PopUpDialog extends StatelessWidget {
                 style: TextStyle(fontSize: 18),
               ),
               onPressed: () {
-                createUser(name.text, email.text, phone.text, street.text,
-                    suite.text, city.text, website.text);
-                Navigator.pop(context);
+                controller.createUser(name.text, email.text, phone.text,
+                    street.text, suite.text, city.text, website.text);
+                Get.back();
               },
             )
           ],

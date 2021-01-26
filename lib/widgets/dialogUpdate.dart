@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../logic/api_integration.dart';
 
 class PopUpDialogUpdate extends StatelessWidget {
+  final ApiController controller = Get.find();
+
   final TextEditingController name = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController phone = TextEditingController();
@@ -98,9 +101,9 @@ class PopUpDialogUpdate extends StatelessWidget {
                 style: TextStyle(fontSize: 18),
               ),
               onPressed: () {
-                updateUser(id, name.text, email.text, phone.text, street.text,
-                    suite.text, city.text, website.text);
-                Navigator.pop(context);
+                controller.updateUser(id, name.text, email.text, phone.text,
+                    street.text, suite.text, city.text, website.text);
+                Get.back();
               },
             )
           ],

@@ -1,7 +1,9 @@
 import 'package:api_task/logic/api_integration.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DeleteButton extends StatelessWidget {
+  ApiController controller = Get.find();
   final int id;
   DeleteButton({this.id});
   @override
@@ -13,7 +15,7 @@ class DeleteButton extends StatelessWidget {
       ),
       onPressed: () {
         // print(id);
-        deleteUser(id);
+        controller.deleteUser(id);
       },
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(100))),
