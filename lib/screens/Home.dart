@@ -5,6 +5,8 @@ import 'detailedScreen.dart';
 import '../widgets/deleteButton.dart';
 import 'package:get/get.dart';
 import 'package:residemenu/residemenu.dart';
+import '../routes/Transparentroute.dart';
+import 'Slider.dart';
 
 class AppHome extends StatefulWidget {
   @override
@@ -35,11 +37,13 @@ class _AppHomeState extends State<AppHome> with TickerProviderStateMixin {
             Icons.home,
           ),
           titleStyle: TextStyle(color: Colors.black),
-          right: null,
         ),
         onTap: () {
-          Scaffold.of(context)
-              .showSnackBar(new SnackBar(content: new Text("MyMenu")));
+          if (msg1 == "Users") {
+            _menuController.closeMenu();
+            Get.offAll(AppHome());
+          }
+          Get.snackbar("My Menu", msg1);
         },
       ),
     );
@@ -64,11 +68,7 @@ class _AppHomeState extends State<AppHome> with TickerProviderStateMixin {
           ),
         ),
         children: <Widget>[
-          buildItem("Account"),
-          buildItem("Profile"),
-          buildItem("Wallet"),
-          buildItem("Sign Up"),
-          buildItem("Register")
+          buildItem("Users"),
         ],
       ),
       child: new Scaffold(
@@ -79,6 +79,15 @@ class _AppHomeState extends State<AppHome> with TickerProviderStateMixin {
               _menuController.openMenu(true);
             },
           ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.more_vert),
+              onPressed: () {
+                Navigator.of(context).push(TransparentRoute(
+                    builder: (BuildContext context) => SliderScreen()));
+              },
+            )
+          ],
         ),
         body: FutureBuilder<List<User>>(
           future: futureUsers,
