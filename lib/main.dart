@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       title: "Task03",
       home: AppHome(),
       debugShowCheckedModeBanner: false,
+      color: Colors.white,
     );
   }
 }
