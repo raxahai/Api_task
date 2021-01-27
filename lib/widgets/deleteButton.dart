@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DeleteButton extends StatelessWidget {
-  ApiController controller = Get.find();
+  final ApiController controller = Get.find();
   final int id;
   DeleteButton({this.id});
   @override

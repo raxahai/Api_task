@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../logic/api_integration.dart';
 
 class PopUpDialog extends StatelessWidget {
-  ApiController controller = Get.find();
+  final ApiController controller = Get.find();
 
   final TextEditingController name = TextEditingController();
   final TextEditingController email = TextEditingController();
