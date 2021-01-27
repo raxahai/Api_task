@@ -3,27 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:ui';
 
-class SliderScreen extends StatelessWidget {
-  const SliderScreen({Key key}) : super(key: key);
+class SliderScreen extends StatefulWidget {
+  @override
+  _SliderScreenState createState() => _SliderScreenState();
+}
 
+class _SliderScreenState extends State<SliderScreen> {
+  final CarouselController btn_controller = CarouselController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      // ),
       backgroundColor: Colors.transparent,
       body: Container(
           color: Colors.black54,
           child: CarouselSlider(
-            options: CarouselOptions(height: 1000, viewportFraction: 1),
+            options: CarouselOptions(
+              // autoPlay: true,
+              height: 1000,
+              enableInfiniteScroll: false,
+              viewportFraction: 1,
+            ),
+            carouselController: btn_controller,
             items: [sliderPage1, sliderPage2].map((i) {
               return Builder(
                 builder: (BuildContext context) {
                   return Container(
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.symmetric(horizontal: 5.0),
-                    // decoration: BoxDecoration(color: Colors.amber),
                     child: i(context),
                   );
                 },
@@ -35,7 +41,6 @@ class SliderScreen extends StatelessWidget {
 
   Widget sliderPage1(BuildContext context) {
     return Stack(
-      // fit: StackFit.expand,
       children: [
         Positioned(
           child: Icon(
@@ -56,9 +61,27 @@ class SliderScreen extends StatelessWidget {
           left: 5,
         ),
         Positioned(
-          child: SliderButton(),
+          child: SliderButton(title: 'Skip', color: Colors.red),
           top: 540,
           left: 10,
+        ),
+        Positioned(
+          child: FlatButton(
+            minWidth: 50,
+            color: Colors.green,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: Text(
+              "Next",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () {
+              btn_controller.nextPage(
+                  duration: Duration(milliseconds: 300), curve: Curves.linear);
+            },
+          ),
+          top: 540,
+          left: 270,
         )
       ],
     );
@@ -74,7 +97,6 @@ class SliderScreen extends StatelessWidget {
             size: 40,
             color: Colors.yellow,
           ),
-          // bottom: 200,
           bottom: 435,
           left: 297,
         ),
@@ -87,7 +109,7 @@ class SliderScreen extends StatelessWidget {
           left: 240,
         ),
         Positioned(
-          child: SliderButton(),
+          child: SliderButton(title: 'Skip', color: Colors.red),
           top: 540,
           left: 10,
         )
