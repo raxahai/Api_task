@@ -17,6 +17,7 @@ class _AppHomeState extends State<AppHome> with TickerProviderStateMixin {
   Future<List<User>> futureUsers;
   ApiController controller = Get.put(ApiController());
   MenuController _menuController;
+  bool _dark = false;
 
   @override
   void initState() {
@@ -25,6 +26,18 @@ class _AppHomeState extends State<AppHome> with TickerProviderStateMixin {
     futureUsers = controller.fetchUser();
     _menuController =
         new MenuController(vsync: this, direction: ScrollDirection.LEFT);
+  }
+
+  void theme(BuildContext context) {
+    if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+      setState(() {
+        Get.changeTheme(ThemeData.dark());
+      });
+    } else {
+      setState(() {
+        Get.changeTheme(ThemeData.light());
+      });
+    }
   }
 
   Widget buildItem(String msg1) {
@@ -36,7 +49,7 @@ class _AppHomeState extends State<AppHome> with TickerProviderStateMixin {
           icon: const Icon(
             Icons.home,
           ),
-          titleStyle: TextStyle(color: Colors.black),
+          titleStyle: TextStyle(color: _dark ? Colors.white : Colors.black),
         ),
         onTap: () {
           if (msg1 == "Users") {
@@ -58,7 +71,7 @@ class _AppHomeState extends State<AppHome> with TickerProviderStateMixin {
           // image: new DecorationImage(
           //     image: new AssetImage("images/menu_background.png"),
           //     fit: BoxFit.none),
-          color: Colors.white),
+          color: _dark ? Colors.grey[900] : Colors.white),
       leftScaffold: new MenuScaffold(
         header: new ConstrainedBox(
           constraints: new BoxConstraints(maxHeight: 80.0, maxWidth: 80.0),
@@ -86,6 +99,24 @@ class _AppHomeState extends State<AppHome> with TickerProviderStateMixin {
                 Navigator.of(context).push(TransparentRoute(
                     builder: (BuildContext context) => SliderScreen()));
               },
+            ),
+            // IconButton(
+            //   icon: Icon(Icons.dark_mode),
+            //   onPressed: () {
+            //     Navigator.of(context).push(TransparentRoute(
+            //         builder: (BuildContext context) => SliderScreen()));
+            //   },
+            // )
+            FlatButton(
+              child: Text("dark"),
+              onPressed: () {
+                _dark = !_dark;
+                if (_dark) {
+                  Get.changeTheme(ThemeData.dark());
+                } else {
+                  Get.changeTheme(ThemeData.light());
+                }
+              },
             )
           ],
         ),
@@ -100,7 +131,10 @@ class _AppHomeState extends State<AppHome> with TickerProviderStateMixin {
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: ListTile(
                             tileColor: Colors.grey[300],
-                            title: Text(m.name),
+                            title: Text(
+                              m.name,
+                              style: TextStyle(color: Colors.black),
+                            ),
                             onTap: () {
                               Get.to(DetailedPage(
                                 id: m.userId,

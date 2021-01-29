@@ -166,7 +166,10 @@ class _DetailedPageState extends State<DetailedPage> {
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: ListTile(
                               tileColor: Colors.red,
-                              title: Text(m.name),
+                              title: Text(
+                                m.name,
+                                style: TextStyle(color: Colors.black),
+                              ),
                               onTap: () {
                                 Get.offAll(DetailedPage(
                                   id: m.userId,
@@ -179,7 +182,10 @@ class _DetailedPageState extends State<DetailedPage> {
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: ListTile(
                             tileColor: Colors.grey[300],
-                            title: Text(m.name),
+                            title: Text(
+                              m.name,
+                              style: TextStyle(color: Colors.black),
+                            ),
                             onTap: () {
                               Get.offAll(DetailedPage(
                                 id: m.userId,
