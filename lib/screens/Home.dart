@@ -28,18 +28,6 @@ class _AppHomeState extends State<AppHome> with TickerProviderStateMixin {
         new MenuController(vsync: this, direction: ScrollDirection.LEFT);
   }
 
-  void theme(BuildContext context) {
-    if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
-      setState(() {
-        Get.changeTheme(ThemeData.dark());
-      });
-    } else {
-      setState(() {
-        Get.changeTheme(ThemeData.light());
-      });
-    }
-  }
-
   Widget buildItem(String msg1) {
     return new Material(
       color: Colors.transparent,
@@ -93,6 +81,33 @@ class _AppHomeState extends State<AppHome> with TickerProviderStateMixin {
             },
           ),
           actions: [
+            FlatButton(
+              minWidth: 10,
+              // child: Text("dark"),
+              // icon: Icon(Icons.dark),
+              child: _dark
+                  ? Image.asset(
+                      "assets/icons/dark_mode.png",
+                      width: 30,
+                      color: Colors.white,
+                    )
+                  : Image.asset(
+                      "assets/icons/bright_mode.png",
+                      width: 30,
+                      height: 25,
+                      color: Colors.white,
+                    ),
+              onPressed: () {
+                _dark = !_dark;
+                setState(() {
+                  if (_dark) {
+                    Get.changeTheme(ThemeData.dark());
+                  } else {
+                    Get.changeTheme(ThemeData.light());
+                  }
+                });
+              },
+            ),
             IconButton(
               icon: Icon(Icons.more_vert),
               onPressed: () {
@@ -107,17 +122,6 @@ class _AppHomeState extends State<AppHome> with TickerProviderStateMixin {
             //         builder: (BuildContext context) => SliderScreen()));
             //   },
             // )
-            FlatButton(
-              child: Text("dark"),
-              onPressed: () {
-                _dark = !_dark;
-                if (_dark) {
-                  Get.changeTheme(ThemeData.dark());
-                } else {
-                  Get.changeTheme(ThemeData.light());
-                }
-              },
-            )
           ],
         ),
         body: FutureBuilder<List<User>>(
