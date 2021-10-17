@@ -161,7 +161,7 @@ class _AppHomeState extends State<AppHome> with TickerProviderStateMixin {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            showDialog(context: context, child: PopUpDialog());
+            showDialog(context: context, builder: (context) => PopUpDialog());
           },
           child: Icon(Icons.add),
         ),
